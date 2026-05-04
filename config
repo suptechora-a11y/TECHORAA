@@ -1,0 +1,36 @@
+{
+  "current": {
+    "store_name": "TECHORA",
+    "accent_color": "#00d4ff",
+    "accent_color_2": "#7c3aed"
+  }
+}
+},
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#00d4ff"
+    },
+    {
+      "type": "color",
+      "id": "accent_color_2",
+      "label": "Secondary Accent Color",
+      "default": "#7c3aed"
+    },
+    {
+      "type": "header",
+      "content": "PayPal"
+    },
+    {
+      "type": "text",
+      "id": "paypal_client_id",
+      "label": "PayPal Client ID",
+      "info": "Get your Client ID from developer.paypal.com"
+    }
+  ]
+}
