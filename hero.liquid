@@ -1,0 +1,49 @@
+<section class="hero">
+  <div class="hero-bg">
+    <div class="grid-lines"></div>
+    <div class="orb1"></div>
+    <div class="orb2"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge"><div class="badge-dot"></div>{{ section.settings.badge_text | default: 'Free Shipping Across the USA' }}</div>
+    <h1>{{ section.settings.hero_line1 | default: 'Next-Gen' }}<span>{{ section.settings.hero_line2 | default: 'Electronics' }}</span>{{ section.settings.hero_line3 | default: 'Delivered.' }}</h1>
+    <p>{{ section.settings.hero_description | default: 'Shop the latest smartphones, laptops, audio gear, and accessories — all at unbeatable prices with fast US shipping and PayPal-secured checkout.' }}</p>
+    <div class="hero-btns">
+      <a href="{{ section.settings.cta_primary_url | default: '/collections/all' }}" class="btn-primary">{{ section.settings.cta_primary_text | default: 'Shop Now →' }}</a>
+      <a href="{{ section.settings.cta_secondary_url | default: '#categories' }}" class="btn-outline">{{ section.settings.cta_secondary_text | default: 'Browse Categories' }}</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num" id="stat-products">500+</div><div class="stat-label">Products</div></div>
+      <div class="stat"><div class="stat-num" id="stat-customers">12,000+</div><div class="stat-label">Customers</div></div>
+      <div class="stat"><div class="stat-num" id="stat-satisfaction">98%</div><div class="stat-label">Satisfaction</div></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="floating-device">
+      <div class="device-ring ring1"></div>
+      <div class="device-ring ring2"></div>
+      <div class="device-ring ring3"></div>
+      <div class="device-core">⚡</div>
+      <div class="orbit-dot od1"></div>
+      <div class="orbit-dot od2"></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "settings": [
+    { "type": "text", "id": "badge_text", "label": "Badge Text", "default": "Free Shipping Across the USA" },
+    { "type": "text", "id": "hero_line1", "label": "Headline Line 1", "default": "Next-Gen" },
+    { "type": "text", "id": "hero_line2", "label": "Headline Line 2 (Gradient)", "default": "Electronics" },
+    { "type": "text", "id": "hero_line3", "label": "Headline Line 3", "default": "Delivered." },
+    { "type": "textarea", "id": "hero_description", "label": "Description" },
+    { "type": "text", "id": "cta_primary_text", "label": "Primary Button Text", "default": "Shop Now →" },
+    { "type": "url", "id": "cta_primary_url", "label": "Primary Button URL" },
+    { "type": "text", "id": "cta_secondary_text", "label": "Secondary Button Text", "default": "Browse Categories" },
+    { "type": "url", "id": "cta_secondary_url", "label": "Secondary Button URL" }
+  ],
+  "presets": [{ "name": "Hero Banner" }]
+}
+{% endschema %}

@@ -1,0 +1,55 @@
+<div style="padding:100px 5% 80px">
+  <div class="section-header" style="margin-bottom:40px">
+    <div class="section-tag">Shop</div>
+    <div class="section-title">{{ collection.title }}</div>
+    {% if collection.description != blank %}
+      <div class="section-sub">{{ collection.description }}</div>
+    {% endif %}
+    <p style="color:var(--muted);font-size:14px;margin-top:12px">{{ collection.products_count }} products</p>
+  </div>
+
+  <div class="products-grid">
+    {% for product in collection.products %}
+      <div class="product-card reveal">
+        {% if product.compare_at_price > product.price %}
+          <div class="product-badge">SALE</div>
+        {% endif %}
+        <a href="{{ product.url }}" style="text-decoration:none">
+          <div class="product-img">
+            {% if product.featured_image %}
+              <img src="{{ product.featured_image | img_url: '400x400' }}" alt="{{ product.title | escape }}" loading="lazy">
+            {% else %}
+              <span class="product-emoji">🔌</span>
+            {% endif %}
+          </div>
+          <div class="product-info">
+            <div class="product-brand">{{ product.vendor }}</div>
+            <div class="product-name">{{ product.title }}</div>
+            <div class="product-stars">★★★★★</div>
+            <div class="product-footer">
+              <div class="product-price">
+                {% if product.compare_at_price > product.price %}
+                  <span class="compare-price">{{ product.compare_at_price | money }}</span>
+                {% endif %}
+                {{ product.price | money }}
+              </div>
+              <form data-product-form action="/cart/add" method="post">
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit" class="add-btn">+</button>
+              </form>
+            </div>
+          </div>
+        </a>
+      </div>
+    {% else %}
+      <p style="color:var(--muted);grid-column:1/-1;text-align:center;padding:60px 0">No products found in this collection.</p>
+    {% endfor %}
+  </div>
+
+  {% if paginate.pages > 1 %}
+    <div style="text-align:center;margin-top:48px">
+      {{ paginate | default_pagination }}
+    </div>
+  {% endif %}
+</div>

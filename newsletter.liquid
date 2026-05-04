@@ -1,0 +1,29 @@
+<section class="newsletter-section">
+  <div class="section-tag">Stay in the Loop</div>
+  <h2>{{ section.settings.title | default: 'Get Exclusive Deals' }}</h2>
+  <p>{{ section.settings.subtitle | default: 'Subscribe for early access to sales, new arrivals, and tech news for US customers.' }}</p>
+  {% form 'customer', id: 'newsletter-form' %}
+    <input type="hidden" name="contact[tags]" value="newsletter">
+    <div class="email-form">
+      <input class="email-input" type="email" name="contact[email]" id="newsletter-email" placeholder="Enter your email address" required>
+      <button type="submit" class="sub-btn" id="subscribe-btn">Subscribe</button>
+    </div>
+    {% if form.posted_successfully? %}
+      <p style="color:var(--accent);margin-top:16px;font-size:14px">🎉 Thanks for subscribing!</p>
+    {% endif %}
+    {% if form.errors %}
+      <p style="color:#ef4444;margin-top:16px;font-size:14px">⚠️ {{ form.errors | default_errors }}</p>
+    {% endif %}
+  {% endform %}
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "Get Exclusive Deals" },
+    { "type": "text", "id": "subtitle", "label": "Subtitle" }
+  ],
+  "presets": [{ "name": "Newsletter" }]
+}
+{% endschema %}

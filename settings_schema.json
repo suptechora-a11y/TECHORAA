@@ -1,0 +1,47 @@
+{
+  "name": "Techora Theme Settings",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Brand"
+    },
+    {
+      "type": "text",
+      "id": "store_name",
+      "label": "Store Name",
+      "default": "TECHORA"
+    },
+    {
+      "type": "textarea",
+      "id": "store_tagline",
+      "label": "Store Tagline",
+      "default": "Premium electronics delivered across the United States."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#00d4ff"
+    },
+    {
+      "type": "color",
+      "id": "accent_color_2",
+      "label": "Secondary Accent Color",
+      "default": "#7c3aed"
+    },
+    {
+      "type": "header",
+      "content": "PayPal"
+    },
+    {
+      "type": "text",
+      "id": "paypal_client_id",
+      "label": "PayPal Client ID",
+      "info": "Get your Client ID from developer.paypal.com"
+    }
+  ]
+}

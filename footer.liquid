@@ -1,0 +1,64 @@
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/" class="logo">{{ section.settings.logo_text | default: shop.name | upcase }}</a>
+      <p>{{ section.settings.tagline | default: 'Premium electronics delivered across the United States. Quality, speed, and trust — that\'s the Techora promise.' }}</p>
+      <div class="social-links">
+        {% if section.settings.twitter_url != blank %}<a class="social" href="{{ section.settings.twitter_url }}">𝕏</a>{% endif %}
+        {% if section.settings.instagram_url != blank %}<a class="social" href="{{ section.settings.instagram_url }}">📷</a>{% endif %}
+        {% if section.settings.youtube_url != blank %}<a class="social" href="{{ section.settings.youtube_url }}">▶</a>{% endif %}
+        {% if section.settings.linkedin_url != blank %}<a class="social" href="{{ section.settings.linkedin_url }}">in</a>{% endif %}
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        {% for link in linklists.footer-shop.links %}
+          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% else %}
+          <li><a href="/collections/smartphones">Smartphones</a></li>
+          <li><a href="/collections/laptops">Laptops</a></li>
+          <li><a href="/collections/audio">Audio</a></li>
+          <li><a href="/collections/gaming">Gaming</a></li>
+          <li><a href="/collections/wearables">Wearables</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="/apps/order-tracking">Track Order</a></li>
+        <li><a href="/policies/refund-policy">Returns</a></li>
+        <li><a href="/pages/faq">FAQs</a></li>
+        <li><a href="/pages/contact">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/pages/about">About Techora</a></li>
+        <li><a href="/policies/privacy-policy">Privacy Policy</a></li>
+        <li><a href="/policies/terms-of-service">Terms of Service</a></li>
+        <li><a href="/policies/shipping-policy">Shipping Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved. Serving customers across the United States.</p>
+    <p>Payments secured by PayPal · SSL Encrypted · Verified Seller</p>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "text", "id": "logo_text", "label": "Logo Text", "default": "TECHORA" },
+    { "type": "textarea", "id": "tagline", "label": "Tagline" },
+    { "type": "url", "id": "twitter_url", "label": "Twitter/X URL" },
+    { "type": "url", "id": "instagram_url", "label": "Instagram URL" },
+    { "type": "url", "id": "youtube_url", "label": "YouTube URL" },
+    { "type": "url", "id": "linkedin_url", "label": "LinkedIn URL" }
+  ]
+}
+{% endschema %}

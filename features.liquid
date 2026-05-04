@@ -1,0 +1,39 @@
+<section class="features-section" id="features">
+  <div class="section-header">
+    <div class="section-tag">{{ section.settings.tag | default: 'Why Choose Techora' }}</div>
+    <div class="section-title">{{ section.settings.title | default: 'Built for US Shoppers' }}</div>
+  </div>
+  <div class="features-grid">
+    <div class="feat reveal">
+      <div class="feat-icon fi-blue">🚚</div>
+      <h3>Fast US Delivery</h3>
+      <p>2–5 business day shipping to all 50 states. Free shipping on orders over $50.</p>
+    </div>
+    <div class="feat reveal">
+      <div class="feat-icon fi-purple">✅</div>
+      <h3>Authentic Products</h3>
+      <p>Every item sourced from verified suppliers with full manufacturer warranty.</p>
+    </div>
+    <div class="feat reveal">
+      <div class="feat-icon fi-amber">💬</div>
+      <h3>24/7 Support</h3>
+      <p>Dedicated customer service team available around the clock via chat and email.</p>
+    </div>
+    <div class="feat reveal">
+      <div class="feat-icon fi-green">↩️</div>
+      <h3>Easy Returns</h3>
+      <p>Not satisfied? Return within 30 days, no questions asked. Full refund guaranteed.</p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Features",
+  "settings": [
+    { "type": "text", "id": "tag", "label": "Tag", "default": "Why Choose Techora" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Built for US Shoppers" }
+  ],
+  "presets": [{ "name": "Features" }]
+}
+{% endschema %}

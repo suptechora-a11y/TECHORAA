@@ -1,0 +1,49 @@
+<section class="categories-section" id="categories">
+  <div class="section-header">
+    <div class="section-tag">{{ section.settings.tag | default: 'Browse by Category' }}</div>
+    <div class="section-title">{{ section.settings.title | default: 'Explore Our Range' }}</div>
+    <div class="section-sub">{{ section.settings.subtitle | default: 'From cutting-edge smartphones to immersive audio — everything you need in one place.' }}</div>
+  </div>
+  <div class="cat-grid">
+    {% for block in section.blocks %}
+      <a href="{{ block.settings.url | default: '/collections/all' }}" class="cat-card reveal" {{ block.shopify_attributes }}>
+        <span class="cat-icon">{{ block.settings.icon | default: '🔌' }}</span>
+        <div class="cat-name">{{ block.settings.name | default: 'Category' }}</div>
+        <div class="cat-count">{{ block.settings.count | default: '100+ items' }}</div>
+      </a>
+    {% else %}
+      <a href="/collections/smartphones" class="cat-card reveal"><span class="cat-icon">📱</span><div class="cat-name">Smartphones</div><div class="cat-count">240+ items</div></a>
+      <a href="/collections/laptops" class="cat-card reveal"><span class="cat-icon">💻</span><div class="cat-name">Laptops</div><div class="cat-count">180+ items</div></a>
+      <a href="/collections/audio" class="cat-card reveal"><span class="cat-icon">🎧</span><div class="cat-name">Audio</div><div class="cat-count">320+ items</div></a>
+      <a href="/collections/wearables" class="cat-card reveal"><span class="cat-icon">⌚</span><div class="cat-name">Wearables</div><div class="cat-count">150+ items</div></a>
+      <a href="/collections/monitors" class="cat-card reveal"><span class="cat-icon">🖥️</span><div class="cat-name">Monitors</div><div class="cat-count">90+ items</div></a>
+      <a href="/collections/gaming" class="cat-card reveal"><span class="cat-icon">🎮</span><div class="cat-name">Gaming</div><div class="cat-count">210+ items</div></a>
+      <a href="/collections/cameras" class="cat-card reveal"><span class="cat-icon">📷</span><div class="cat-name">Cameras</div><div class="cat-count">130+ items</div></a>
+      <a href="/collections/accessories" class="cat-card reveal"><span class="cat-icon">🔌</span><div class="cat-name">Accessories</div><div class="cat-count">500+ items</div></a>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Categories",
+  "settings": [
+    { "type": "text", "id": "tag", "label": "Section Tag", "default": "Browse by Category" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Explore Our Range" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitle" }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Emoji Icon", "default": "📱" },
+        { "type": "text", "id": "name", "label": "Category Name", "default": "Smartphones" },
+        { "type": "text", "id": "count", "label": "Item Count", "default": "240+ items" },
+        { "type": "url", "id": "url", "label": "Link URL" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Categories" }]
+}
+{% endschema %}

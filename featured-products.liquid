@@ -1,0 +1,88 @@
+<section class="products-section" id="products">
+  <div class="section-header">
+    <div class="section-tag">{{ section.settings.tag | default: 'Featured Products' }}</div>
+    <div class="section-title">{{ section.settings.title | default: 'Hot Picks This Week' }}</div>
+    <div class="section-sub">{{ section.settings.subtitle | default: 'Handpicked top-rated electronics loved by thousands of US customers.' }}</div>
+  </div>
+  <div class="products-grid">
+    {% assign collection = collections[section.settings.collection] %}
+    {% if collection and collection.products.size > 0 %}
+      {% for product in collection.products limit: section.settings.products_limit %}
+        <div class="product-card reveal">
+          {% if product.compare_at_price > product.price %}
+            <div class="product-badge">SALE</div>
+          {% endif %}
+          <a href="{{ product.url }}" style="text-decoration:none">
+            <div class="product-img">
+              {% if product.featured_image %}
+                <img src="{{ product.featured_image | img_url: '400x400' }}" alt="{{ product.title | escape }}" loading="lazy">
+              {% else %}
+                <span class="product-emoji">🔌</span>
+              {% endif %}
+            </div>
+            <div class="product-info">
+              <div class="product-brand">{{ product.vendor }}</div>
+              <div class="product-name">{{ product.title }}</div>
+              <div class="product-stars">★★★★★ {{ product.metafields.reviews.rating_count | default: '' }}</div>
+              <div class="product-footer">
+                <div class="product-price">
+                  {% if product.compare_at_price > product.price %}
+                    <span class="compare-price">{{ product.compare_at_price | money }}</span>
+                  {% endif %}
+                  {{ product.price | money }}
+                </div>
+                <form data-product-form action="/cart/add" method="post">
+                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                  <input type="hidden" name="quantity" value="1">
+                  <button type="submit" class="add-btn">+</button>
+                </form>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    {% else %}
+      <!-- Placeholder cards when no collection is set -->
+      {% assign placeholders = 'Smartphone,Laptop,Headphones,Smartwatch,Gaming Console,Camera' | split: ',' %}
+      {% assign emojis = '📱,💻,🎧,⌚,🎮,📷' | split: ',' %}
+      {% for item in placeholders limit: 6 %}
+        <div class="product-card reveal">
+          <div class="product-badge">FEATURED</div>
+          <a href="/collections/all" style="text-decoration:none">
+            <div class="product-img"><span class="product-emoji">{{ emojis[forloop.index0] }}</span></div>
+            <div class="product-info">
+              <div class="product-brand">Techora</div>
+              <div class="product-name">Premium {{ item }}</div>
+              <div class="product-stars">★★★★★</div>
+              <div class="product-footer">
+                <div class="product-price">$299.00</div>
+                <button class="add-btn">+</button>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+  {% if section.settings.show_view_all %}
+    <div style="text-align:center;margin-top:48px">
+      <a href="{{ section.settings.view_all_url | default: '/collections/all' }}" class="btn-outline">View All Products</a>
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "settings": [
+    { "type": "text", "id": "tag", "label": "Section Tag", "default": "Featured Products" },
+    { "type": "text", "id": "title", "label": "Section Title", "default": "Hot Picks This Week" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitle" },
+    { "type": "collection", "id": "collection", "label": "Collection to Display" },
+    { "type": "range", "id": "products_limit", "min": 2, "max": 12, "step": 1, "default": 6, "label": "Number of Products" },
+    { "type": "checkbox", "id": "show_view_all", "label": "Show View All Button", "default": true },
+    { "type": "url", "id": "view_all_url", "label": "View All URL" }
+  ],
+  "presets": [{ "name": "Featured Products" }]
+}
+{% endschema %}

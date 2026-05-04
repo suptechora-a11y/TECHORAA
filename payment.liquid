@@ -1,0 +1,35 @@
+<section class="payment-section" id="payment">
+  <div class="paypal-inner">
+    <div class="paypal-left">
+      <h2>{{ section.settings.title | default: 'Safe & Secure Checkout' }}</h2>
+      <p>{{ section.settings.description | default: 'Every purchase on Techora is protected by PayPal\'s world-class security infrastructure. Shop with complete confidence.' }}</p>
+      <div class="paypal-features">
+        <div class="pf"><div class="pf-icon">🔒</div>256-bit SSL encryption on all transactions</div>
+        <div class="pf"><div class="pf-icon">🛡️</div>PayPal Buyer Protection on every order</div>
+        <div class="pf"><div class="pf-icon">↩️</div>Hassle-free 30-day returns</div>
+        <div class="pf"><div class="pf-icon">⚡</div>Instant payment confirmation</div>
+      </div>
+    </div>
+    <div class="paypal-badge">
+      <div class="paypal-logo-box">Pay<span>Pal</span></div>
+      <p>Trusted by 430M+ users worldwide. Checkout securely with your PayPal account or any major card.</p>
+      <div class="paypal-methods">
+        <div class="pm">VISA</div>
+        <div class="pm">MC</div>
+        <div class="pm">AMEX</div>
+        <div class="pm">PayPal</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Payment / PayPal",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Section Title", "default": "Safe & Secure Checkout" },
+    { "type": "textarea", "id": "description", "label": "Description" }
+  ],
+  "presets": [{ "name": "Payment / PayPal" }]
+}
+{% endschema %}

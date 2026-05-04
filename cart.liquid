@@ -1,0 +1,47 @@
+<div class="cart-page">
+  <h1>Your Cart</h1>
+  {% if cart.item_count > 0 %}
+    {% for item in cart.items %}
+      <div class="cart-item">
+        <div class="cart-item-img">
+          {% if item.image %}
+            <img src="{{ item.image | img_url: '80x80' }}" alt="{{ item.title | escape }}" style="width:100%;height:100%;object-fit:contain;border-radius:10px">
+          {% else %}
+            🔌
+          {% endif %}
+        </div>
+        <div class="cart-item-info">
+          <div class="cart-item-name">{{ item.product.title }}</div>
+          {% unless item.variant.title == 'Default Title' %}
+            <div style="font-size:13px;color:var(--muted)">{{ item.variant.title }}</div>
+          {% endunless %}
+          <div style="font-size:13px;color:var(--muted);margin-top:4px">Qty: {{ item.quantity }}</div>
+        </div>
+        <div class="cart-item-price">{{ item.line_price | money }}</div>
+        <form action="/cart/change" method="post">
+          <input type="hidden" name="line" value="{{ forloop.index }}">
+          <input type="hidden" name="quantity" value="0">
+          <button type="submit" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;padding:8px" title="Remove">✕</button>
+        </form>
+      </div>
+    {% endfor %}
+
+    <div class="cart-total">
+      <div class="cart-total-row"><span>Subtotal</span><span>{{ cart.total_price | money }}</span></div>
+      <div class="cart-total-row"><span>Shipping</span><span style="color:var(--accent)">Free on orders $50+</span></div>
+      <div class="cart-total-row grand"><span>Total</span><span>{{ cart.total_price | money }}</span></div>
+
+      <form action="/checkout" method="post">
+        <button type="submit" class="checkout-btn">CHECKOUT WITH PAYPAL →</button>
+      </form>
+
+      <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:16px">🔒 Secured by PayPal · SSL Encrypted</p>
+    </div>
+  {% else %}
+    <div style="text-align:center;padding:80px 0">
+      <div style="font-size:64px;margin-bottom:24px">🛒</div>
+      <p style="color:var(--muted);font-size:16px;margin-bottom:32px">Your cart is empty.</p>
+      <a href="/collections/all" class="btn-primary">Start Shopping</a>
+    </div>
+  {% endif %}
+</div>

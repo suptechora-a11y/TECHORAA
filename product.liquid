@@ -1,0 +1,57 @@
+{% assign product = product %}
+<div class="product-page">
+  <div class="product-page-img">
+    {% if product.featured_image %}
+      <img src="{{ product.featured_image | img_url: '600x600' }}" alt="{{ product.title | escape }}">
+    {% else %}
+      🔌
+    {% endif %}
+  </div>
+  <div class="product-page-info">
+    <div class="product-brand">{{ product.vendor }}</div>
+    <h1>{{ product.title }}</h1>
+    <div class="product-page-price">
+      {% if product.compare_at_price > product.price %}
+        <span style="font-size:18px;color:var(--muted);text-decoration:line-through;font-family:'DM Sans',sans-serif;margin-right:12px">{{ product.compare_at_price | money }}</span>
+      {% endif %}
+      {{ product.price | money }}
+    </div>
+    <div class="product-page-desc">{{ product.description }}</div>
+
+    <form data-product-form action="/cart/add" method="post" enctype="multipart/form-data">
+      {% if product.variants.size > 1 %}
+        <div style="margin-bottom:20px">
+          <label style="font-size:13px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;display:block">Variant</label>
+          <select name="id" style="background:var(--card);border:1px solid var(--border);color:var(--text);padding:10px 16px;border-radius:8px;font-size:14px;width:100%;font-family:'DM Sans',sans-serif">
+            {% for variant in product.variants %}
+              <option value="{{ variant.id }}" {% unless variant.available %}disabled{% endunless %}>
+                {{ variant.title }} — {{ variant.price | money }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+      {% else %}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      {% endif %}
+
+      <div class="qty-selector">
+        <label style="font-size:13px;color:var(--muted);letter-spacing:1px;text-transform:uppercase">Qty</label>
+        <button type="button" class="qty-btn" data-action="minus">−</button>
+        <input class="qty-input" type="number" id="qty" name="quantity" value="1" min="1">
+        <button type="button" class="qty-btn" data-action="plus">+</button>
+      </div>
+
+      {% if product.available %}
+        <button type="submit" class="atc-full-btn add-to-cart-btn">ADD TO CART</button>
+      {% else %}
+        <button type="button" class="atc-full-btn" disabled style="opacity:0.5;cursor:not-allowed">SOLD OUT</button>
+      {% endif %}
+    </form>
+
+    <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px">
+      <div class="pf"><div class="pf-icon">🚚</div>Free shipping on orders over $50</div>
+      <div class="pf"><div class="pf-icon">🔒</div>Secured by PayPal</div>
+      <div class="pf"><div class="pf-icon">↩️</div>30-day returns</div>
+    </div>
+  </div>
+</div>
